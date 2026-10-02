@@ -1,32 +1,278 @@
-<div id="pin-flow" class="viz-dotted-background">
-<style>
-#pin-flow{--paper:light-dark(#fff,#20252d);--ink:light-dark(#172334,#eef3fa);--sub:light-dark(#566477,#b4c0d0);--line:light-dark(#dbe2ec,#455063);--soft:light-dark(#f2f5fa,#2b3340);--blue:light-dark(#2867e8,#87adff);--tint:light-dark(#eaf1ff,#303e58);font:14px/1.5 system-ui,sans-serif;color:var(--ink);padding:20px;border-radius:16px}
-#pin-flow *{box-sizing:border-box}#pin-flow button{font:inherit;color:inherit;cursor:pointer;min-height:44px;border:1px solid var(--line);border-radius:10px;background:var(--paper);padding:10px 14px}#pin-flow button:focus-visible{outline:3px solid var(--blue);outline-offset:3px}#pin-flow button[aria-pressed=true]{background:var(--tint);border-color:var(--blue)}#pin-flow .shell{max-width:690px;margin:auto;background:var(--paper);border:1px solid var(--line);border-radius:16px;overflow:hidden}#pin-flow header{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;gap:12px;align-items:center}#pin-flow small{color:var(--sub);font-size:12px}#pin-flow nav{display:flex;flex-wrap:wrap;gap:8px;padding:16px 20px}#pin-flow main{padding:0 20px 24px}#pin-flow h3{font-size:19px;font-weight:600;margin:10px 0 6px}#pin-flow p{margin:6px 0 18px;color:var(--sub)}#pin-flow .rank{display:grid;gap:10px}#pin-flow .rank button{display:grid;grid-template-columns:1fr auto;text-align:left;gap:8px}#pin-flow .bar{height:7px;background:var(--soft);grid-column:1/-1;border-radius:4px;overflow:hidden}#pin-flow .bar span{display:block;height:100%;background:var(--blue)}#pin-flow .slide{background:var(--soft);padding:14px;border-radius:12px;margin:18px 0;display:grid;grid-template-columns:1fr 1fr;gap:12px}#pin-flow .slide button{min-height:126px;text-align:left;display:flex;flex-direction:column;justify-content:space-between;gap:12px}#pin-flow .slide button strong{font-size:20px}#pin-flow .slide button:first-child{grid-column:1/-1;min-height:60px}#pin-flow .detail{padding:16px;border-left:3px solid var(--blue);background:var(--tint)}#pin-flow .phone{max-width:350px;margin:12px auto;border:2px solid var(--line);border-radius:26px;padding:18px;background:var(--soft);overflow:hidden}#pin-flow .qcard{touch-action:pan-y;background:var(--paper);border:1px solid var(--line);border-radius:16px;padding:24px 18px;min-height:230px;display:flex;flex-direction:column;justify-content:space-between;user-select:none}#pin-flow .qcard h3{font-size:20px}#pin-flow .actions{display:flex;gap:8px;margin-top:16px}#pin-flow .actions button{flex:1}#pin-flow .hint{display:flex;justify-content:space-between;font-size:12px;color:var(--sub);margin:12px 0}#pin-flow .status{min-height:24px;margin:12px 0;color:var(--sub)}#pin-flow [hidden]{display:none!important}@media(max-width:420px){#pin-flow{padding:8px}#pin-flow nav,#pin-flow header,#pin-flow main{padding-left:12px;padding-right:12px}#pin-flow .slide{grid-template-columns:1fr}#pin-flow nav button{flex:1;padding:8px;font-size:12px}}
-</style>
-<div class="shell">
-<header><strong>ClassPin · 강사 질문 보드</strong><small>구상용 예시 데이터</small></header>
-<nav aria-label="질문 처리 단계"><button data-step="0" aria-pressed="true">① 많은 페이지</button><button data-step="1" aria-pressed="false">② 섹터별 질문</button><button data-step="2" aria-pressed="false">③ 모바일 처리</button></nav>
-<main>
-<section data-panel="0"><h3>어디에서 가장 많이 막혔나요?</h3><p>전체 질문 50건 · 페이지를 눌러 이동</p><div class="rank">
-<button data-page="8"><span>8페이지 · 비용 계산</span><strong>25건 →</strong><div class="bar"><span style="width:100%"></span></div></button>
-<button data-page="5"><span>5페이지 · 핵심 개념</span><strong>15건 →</strong><div class="bar"><span style="width:60%"></span></div></button>
-<button data-page="3"><span>3페이지 · 시장 배경</span><strong>6건 →</strong><div class="bar"><span style="width:24%"></span></div></button>
-</div><p style="margin-top:18px">위치 미지정·위치 확인 필요 4건</p><button data-step="2">위치와 무관한 질문 처리 →</button></section>
-<section data-panel="1" hidden><h3 id="page-title">8페이지 · 비용 계산</h3><p>섹터를 누르면 질문 유형과 원문 확인</p><div class="slide" aria-label="슬라이드 섹터 개념도">
-<button data-sector="0"><span>A · 제목 / 개요</span><span id="s0">2건 · 예시 요청</span></button>
-<button data-sector="1" aria-pressed="true"><span>B · 왼쪽 내용</span><strong id="s1">18건</strong><span>주요 유형 · 모르겠어요</span></button>
-<button data-sector="2"><span>C · 오른쪽 내용</span><strong id="s2">5건</strong><span>주요 유형 · 근거 질문</span></button>
-</div><div class="detail" aria-live="polite" id="sector-detail">B · 왼쪽 내용 / 18건<br>모르겠어요 12 · 계산 방법 4 · 기타 2</div><p style="margin-top:12px">임시 도형 구획 · 질문 수가 이해도 점수는 아님</p></section>
-<section data-panel="2" hidden><div class="phone"><small>강사 · 위치 미지정 / 위치 확인 필요</small><div class="hint"><span>← 제외함</span><span>처리 완료 →</span></div><article class="qcard" id="qcard"><small id="qmeta">1 / 4 · 위치 미지정</small><h3 id="qtext">오늘 자료는 수업 후에 받을 수 있나요?</h3><small>원문을 유지한 채 처리 상태만 변경</small></article><div class="actions"><button id="discard">← 버리기</button><button id="done">완료 →</button></div><div class="status" id="qstatus" aria-live="polite">대기 4 · 제외 0 · 완료 0</div><button id="undo" disabled>마지막 처리 되돌리기</button></div></section>
-</main></div>
-<script>
-(()=>{const root=document.getElementById('pin-flow');const $=s=>root.querySelector(s);let page=8,step=0,history=[];
-const pages={8:{title:'비용 계산',n:[2,18,5],types:[['예시 요청 2'],['모르겠어요 12','계산 방법 4','기타 2'],['근거 질문 5']]},5:{title:'핵심 개념',n:[1,10,4],types:[['예시 요청 1'],['모르겠어요 7','용어 질문 3'],['근거 질문 4']]},3:{title:'시장 배경',n:[1,3,2],types:[['예시 요청 1'],['모르겠어요 2','용어 질문 1'],['근거 질문 2']]}};
-const qs=['오늘 자료는 수업 후에 받을 수 있나요?','이 계산식은 어떻게 나온 건가요?','다음 실습은 언제 시작하나요?','앞에서 설명한 용어를 다시 알려주세요.'];
-function save(){if(window.openai?.setWidgetState)window.openai.setWidgetState({modelContent:{page,step,processed:history.length},privateContent:{history}}).catch(()=>{});}
-function sector(i){const d=pages[page];root.querySelectorAll('[data-sector]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.sector===i)));$('#sector-detail').textContent=['A · 제목 / 개요','B · 왼쪽 내용','C · 오른쪽 내용'][i]+' / '+d.n[i]+'건 — '+d.types[i].join(' · ');}
-function render(){root.querySelectorAll('[data-panel]').forEach(p=>p.hidden=+p.dataset.panel!==step);root.querySelectorAll('nav [data-step]').forEach(b=>b.setAttribute('aria-pressed',String(+b.dataset.step===step)));const d=pages[page];$('#page-title').textContent=page+'페이지 · '+d.title;$('#s0').textContent=d.n[0]+'건 · 예시 요청';$('#s1').textContent=d.n[1]+'건';$('#s2').textContent=d.n[2]+'건';sector(1);const n=history.length;$('#qmeta').textContent=n<4?(n+1)+' / 4 · '+(n===1?'위치 확인 필요':'위치 미지정'):'처리 끝';$('#qtext').textContent=qs[n]||'모든 카드를 확인했습니다.';$('#qstatus').textContent='대기 '+(4-n)+' · 제외 '+history.filter(x=>x==='exclude').length+' · 완료 '+history.filter(x=>x==='done').length;$('#discard').disabled=$('#done').disabled=n===4;$('#undo').disabled=!n;}
-root.querySelectorAll('[data-step]').forEach(b=>b.onclick=()=>{step=+b.dataset.step;render();save();});root.querySelectorAll('[data-page]').forEach(b=>b.onclick=()=>{page=+b.dataset.page;step=1;render();save();});root.querySelectorAll('[data-sector]').forEach(b=>b.onclick=()=>sector(+b.dataset.sector));function act(s){if(history.length<4){history.push(s);render();save();}}$('#discard').onclick=()=>act('exclude');$('#done').onclick=()=>act('done');$('#undo').onclick=()=>{history.pop();render();save();};let start=null;const card=$('#qcard');card.onpointerdown=e=>{start={x:e.clientX,y:e.clientY};card.setPointerCapture(e.pointerId);};card.onpointerup=e=>{if(start){const dx=e.clientX-start.x,dy=e.clientY-start.y;if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)*1.5)act(dx<0?'exclude':'done');}start=null;};card.onpointercancel=()=>start=null;
-function restore(s){if(s?.modelContent){page=pages[s.modelContent.page]?s.modelContent.page:8;step=[0,1,2].includes(s.modelContent.step)?s.modelContent.step:0;}history=Array.isArray(s?.privateContent?.history)?s.privateContent.history.filter(x=>['exclude','done'].includes(x)).slice(0,4):[];render();}restore(window.openai?.widgetState);window.addEventListener('openai:set_globals',e=>{if(e.detail?.globals?.widgetState)restore(e.detail.globals.widgetState);});})();
-</script>
-</div>
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#f4f3f7">
+  <meta name="description" content="Class Pin Q&A Studio front-end preview">
+  <title>Class Pin · Q&amp;A Studio 미리보기</title>
+  <style>
+    :root{color-scheme:light;--ink:#1d2430;--muted:#7b8494;--line:#dce0e8;--paper:#fff;--canvas:#f2f1f5;--blue:#3169e8;--blue-soft:#e9efff;--purple:#8663d5;--red:#ed4c57;--green:#1b9a78;--amber:#edae37;--shadow:0 12px 35px #242c3b12;font-family:Inter,Pretendard,"Apple SD Gothic Neo",system-ui,sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--canvas);color:var(--ink);font-size:14px}button,select,textarea{font:inherit}button{color:inherit;cursor:pointer}button:focus-visible,a:focus-visible,select:focus-visible,textarea:focus-visible{outline:3px solid #8d73e8;outline-offset:2px}button:disabled{opacity:.48;cursor:default}.app{min-height:100vh}.topbar{height:68px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:26px;padding:0 24px}.brand{display:flex;align-items:center;gap:10px;font-size:17px;font-weight:800;white-space:nowrap}.brand-mark{width:30px;height:34px;background:var(--blue);color:#fff;display:grid;place-items:center;clip-path:polygon(50% 0,100% 35%,90% 75%,50% 100%,10% 75%,0 35%);font-size:15px}.eyebrow{font-size:10px;color:#9276d5;letter-spacing:.18em;font-weight:700;margin-left:4px}.session-name{border-left:1px solid var(--line);padding-left:24px;color:#536072;white-space:nowrap}.top-spacer{flex:1}.session-live{display:inline-flex;align-items:center;gap:7px;border-radius:999px;background:#fff0f0;color:#d53f4c;padding:8px 12px;font-size:11px;font-weight:800;letter-spacing:.04em}.session-live i{width:8px;height:8px;border-radius:50%;background:#ed4755;box-shadow:0 0 0 4px #ed47551e}.runtime{font-variant-numeric:tabular-nums;font-weight:750;letter-spacing:.03em}.top-actions,.modebar,.mode-tabs,.map-toolbar,.filter-row,.toolbar-right{display:flex;align-items:center;gap:8px}.top-actions button,.mode-tabs button,.mode-actions button,.map-toolbar button,.map-filter button,.chart-controls button,.stage-controls button,.question-filter button,.student-tools button{background:#fff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;min-height:38px}.top-actions button:hover,.mode-tabs button:hover,.map-toolbar button:hover,.map-filter button:hover,.chart-controls button:hover,.stage-controls button:hover{border-color:#9a83dc}.modebar{height:60px;background:#fff;padding:8px 22px;border-bottom:1px solid var(--line)}.mode-tabs{background:#f7f6fa;border:1px solid #e8e5ed;border-radius:14px;padding:4px}.mode-tabs button{border-color:transparent;background:transparent;border-radius:10px;padding:9px 15px}.mode-tabs button.active{background:#eee8ff;color:#714fbd;border-color:#dfd5f3;font-weight:750}.mode-spacer{flex:1}.mode-actions button{font-size:12px}.mode-actions .primary{background:var(--blue);border-color:var(--blue);color:white;font-weight:750}.demo-banner{height:34px;padding:7px 24px;background:#fff9e9;border-bottom:1px solid #f5e5b8;color:#76613c;font-size:11px}.demo-banner strong{color:#d18817;margin-right:8px}.view{display:none}.view.active{display:block}.map-view{height:calc(100vh - 162px);min-height:540px;position:relative;overflow:hidden;background-color:#f4f3f7;background-image:radial-gradient(#d1ced8 1px,transparent 1px);background-size:16px 16px}.map-toolbar{height:57px;margin:12px 18px 0;padding:7px 10px;background:#ffffffed;border:1px solid white;border-radius:16px;box-shadow:0 6px 24px #30364a10;backdrop-filter:blur(12px);position:relative;z-index:2}.canvas-brand{display:flex;align-items:center;gap:10px;padding:0 14px;font-weight:800;white-space:nowrap}.spark{color:#9870e5;font-size:22px}.canvas-brand small{display:block;font-weight:500;color:#888397;font-size:9px;letter-spacing:.12em}.map-filter{display:flex;align-items:center;gap:4px;border-left:1px solid var(--line);padding-left:12px}.map-filter button{border:0;background:transparent;padding:8px 10px;min-height:34px;font-size:12px}.map-filter button.active{background:#eee8ff;color:#704fc0;font-weight:750}.toolbar-right{margin-left:auto}.toolbar-right button{padding:7px 10px;min-height:34px;font-size:12px}.zoom-value{font-size:12px;color:var(--muted);min-width:36px;text-align:center}.board-scroll{position:absolute;inset:82px 0 0;overflow:auto;padding:18px 20px 88px}.group-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,400px),1fr));gap:16px;align-items:start;max-width:1800px;margin:0 auto}.cluster{--cluster:#8d77d0;background:#ffffffb9;border:1px solid color-mix(in srgb,var(--cluster),white 55%);border-radius:20px;padding:13px;min-width:0;box-shadow:0 4px 18px #232b3d09;transition:transform .35s,opacity .25s}.cluster-head{display:flex;align-items:center;gap:8px;margin:0 1px 10px}.cluster-dot{width:9px;height:9px;border-radius:50%;background:var(--cluster)}.cluster-head strong{font-size:13px}.cluster-head small{margin-left:auto;color:#737d8e;font-size:11px}.slide-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}.slide-card{border:1px solid #e2e5eb;border-radius:12px;padding:7px;background:#fff;min-width:0;text-align:left;box-shadow:0 2px 7px #1d26330b;transition:transform .2s,border-color .2s,box-shadow .2s;animation:cardIn .45s both;animation-delay:calc(var(--i,0)*22ms)}.slide-card:hover{transform:translateY(-2px);border-color:#9a83dc;box-shadow:0 9px 20px #4c3e701b}.slide-meta{display:flex;align-items:center;gap:6px;font-size:9px;color:#778193;margin:0 2px 6px}.slide-meta b{color:#27364b;font-size:10px}.slide-meta em{font-style:normal;margin-left:auto;background:#f3f4f8;border-radius:999px;padding:3px 6px;white-space:nowrap}.slide-art{position:relative;aspect-ratio:1.62;background:#eaf0ff;border-radius:6px;overflow:hidden;border:1px solid #e4e9f5;color:#172945}.slide-art[data-theme="1"]{background:#f3efff}.slide-art[data-theme="2"]{background:#eaf7f5}.slide-art[data-theme="3"]{background:#fff4e8}.paper-top{height:17%;background:#fff;display:flex;align-items:center;gap:5px;padding:0 6px;font-size:clamp(6px,.65vw,10px);font-weight:750;white-space:nowrap;overflow:hidden}.paper-top .blue-word{color:#2364e8}.paper-top b{margin-left:auto;color:#222}.paper-content{height:83%;padding:6px;display:grid;grid-template-columns:1fr 1fr;gap:5px}.paper-title{font-size:clamp(7px,.83vw,12px);font-weight:800;line-height:1.2;color:#19263a}.paper-copy{height:3px;background:#b5c4df;border-radius:4px;margin-top:4px;width:82%}.paper-copy.short{width:54%}.paper-tag{display:inline-block;background:#3169e8;color:white;border-radius:3px;font-size:clamp(5px,.5vw,8px);padding:2px 4px;margin-bottom:3px}.paper-box{position:relative;border-radius:5px;background:#fff;padding:6px;min-height:0;box-shadow:0 2px 5px #1f33600b}.paper-visual{border-radius:5px;background:linear-gradient(145deg,#dce7ff,#fff 58%,#c9dafc);position:relative;overflow:hidden}.paper-visual::before{content:"";position:absolute;width:48%;height:63%;left:26%;top:17%;border-radius:12px;background:linear-gradient(145deg,#1b2639,#070b12);transform:rotate(-14deg);box-shadow:9px 5px 12px #1114}.paper-visual::after{content:"";position:absolute;width:22%;height:48%;right:11%;top:25%;border-radius:8px;background:linear-gradient(160deg,#111827,#03060b);box-shadow:0 2px 7px #0004}.slide-art[data-theme="1"] .paper-visual{background:linear-gradient(135deg,#f5eaff,#fff,#ded6ff)}.slide-art[data-theme="1"] .paper-visual::before{background:linear-gradient(140deg,#7450ba,#17152c)}.slide-art[data-theme="2"] .paper-visual{background:linear-gradient(135deg,#d9f2ee,#fff,#b9e2d8)}.slide-art[data-theme="2"] .paper-visual::before{background:linear-gradient(140deg,#258a78,#152e35)}.slide-art[data-theme="3"] .paper-visual{background:linear-gradient(135deg,#ffefd8,#fff,#f7d8b9)}.chart-bars{height:72%;display:flex;align-items:end;gap:4px;padding:4px 9px}.chart-bars i{display:block;flex:1;background:#6d93f2;border-radius:3px 3px 0 0}.chart-bars i:nth-child(2){height:60%;background:#99b1f4}.chart-bars i:nth-child(1){height:36%}.chart-bars i:nth-child(3){height:82%;background:#315fd2}.chart-bars i:nth-child(4){height:48%;background:#8e78da}.chart-caption{font-size:6px;color:#64738c}.paper-quote{display:grid;place-items:center;font-size:clamp(7px,.8vw,12px);font-weight:800;text-align:center;line-height:1.25;color:#213b77;background:#fff;padding:7px;border-radius:5px}.paper-list{display:grid;gap:4px;padding:5px}.paper-list i{height:5px;border-radius:3px;background:#d9e1f1}.paper-list i:nth-child(2){width:76%}.paper-list i:nth-child(3){width:89%}.mini-pin{position:absolute;z-index:2;left:var(--x);top:var(--y);width:16px;height:20px;transform:translate(-50%,-65%);filter:drop-shadow(0 2px 2px #1115)}.mini-pin::before{content:"";position:absolute;inset:0 0 4px;background:#fff;border:1.5px solid #e94b58;border-radius:50% 50% 50% 0;transform:rotate(-45deg)}.mini-pin::after{content:"?";position:absolute;inset:0 0 4px;display:grid;place-items:center;color:#e64b58;font-weight:900;font-size:9px}.mini-pin.blue::before{border-color:#3169e8;background:#3169e8}.mini-pin.blue::after{content:attr(data-count);color:#fff;font-size:7px}.mini-pin.grey{opacity:.56}.card-foot{display:flex;align-items:center;gap:6px;padding:7px 2px 0;font-size:9px;color:#758092}.card-foot .red-count{color:#d94752;font-weight:750}.card-foot .blue-count{color:#2861d8;font-weight:750}.card-foot span:last-child{margin-left:auto;color:#4c5566}.float-dashboard{position:absolute;right:22px;bottom:18px;z-index:5;border:0;border-radius:999px;background:#825bdd;color:#fff;padding:13px 19px;font-weight:800;box-shadow:0 8px 24px #5537ac50}.float-dashboard:hover{background:#7047d0;transform:translateY(-1px)}.canvas-help{position:absolute;bottom:18px;left:20px;color:#7e7a89;font-size:10px;pointer-events:none}.group-grid.shuffling .cluster{animation:shuffle .65s ease both;animation-delay:calc(var(--i,0)*55ms)}@keyframes shuffle{0%{transform:translate(0,0) rotate(0);opacity:1}25%{transform:translate(10px,-8px) rotate(1deg);opacity:.5}55%{transform:translate(-7px,8px) rotate(-1deg);opacity:.7}100%{transform:translate(0,0) rotate(0);opacity:1}}@keyframes cardIn{from{opacity:0;transform:translateY(9px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}.page-backdrop{position:fixed;inset:0;z-index:30;background:#e8e7ebd9;backdrop-filter:blur(7px);display:none;place-items:center;padding:16px}.page-backdrop.open{display:grid}.page-window{width:min(1500px,98vw);height:min(92vh,980px);background:#fbfafc;border:1px solid #fff;border-radius:20px;box-shadow:0 25px 100px #1e22343d;display:flex;flex-direction:column;overflow:hidden;animation:pageZoom .28s cubic-bezier(.2,.75,.2,1)}@keyframes pageZoom{from{opacity:.5;transform:scale(.88)}to{opacity:1;transform:scale(1)}}.page-top{height:56px;flex:none;display:flex;align-items:center;gap:12px;padding:0 18px;background:#fff;border-bottom:1px solid var(--line)}.page-top strong{font-size:13px}.page-top small{color:var(--muted)}.page-top button{margin-left:auto;border:1px solid var(--line);background:#fff;border-radius:9px;padding:8px 12px}.page-main{flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:14px;padding:14px}.presentation{min-width:0;display:flex;flex-direction:column;justify-content:center}.slide-art.large{width:min(100%,1150px);margin:auto;aspect-ratio:16/9;border-radius:12px;box-shadow:0 11px 35px #20294426}.slide-art.large .paper-top{padding:0 3%;font-size:clamp(12px,1.25vw,20px)}.slide-art.large .paper-content{padding:2.5%;gap:2%;}.slide-art.large .paper-title{font-size:clamp(16px,2vw,32px)}.slide-art.large .paper-tag{font-size:clamp(10px,.9vw,15px);padding:5px 8px}.slide-art.large .paper-copy{height:8px;margin-top:10px}.slide-art.large .paper-box{padding:4%;border-radius:10px}.slide-art.large .paper-quote{font-size:clamp(15px,1.6vw,25px);border-radius:10px}.slide-art.large .paper-list{gap:10px;padding:7%}.slide-art.large .paper-list i{height:10px}.slide-art.large .chart-caption{font-size:12px}.slide-art.large .mini-pin{width:35px;height:43px;cursor:pointer}.slide-art.large .mini-pin::after{font-size:20px}.slide-art.large .mini-pin.blue::after{font-size:14px}.slide-art.large .micro-pin{position:absolute;width:17px;height:22px;left:var(--x);top:var(--y);border-radius:50% 50% 50% 0;transform:translate(-50%,-70%) rotate(-45deg);background:#fff;border:1px solid #f18a91;box-shadow:0 2px 5px #0003;cursor:pointer}.slide-art.large .micro-pin::after{content:"?";display:block;transform:rotate(45deg);color:#e74b58;font-size:12px;font-weight:900;text-align:center;margin-top:2px}.slide-art.large .micro-pin.dim{opacity:.16}.slide-art.large .micro-pin.hidden{display:none}.stage-controls{display:flex;justify-content:center;align-items:center;gap:12px;margin-top:12px}.stage-controls button{min-height:34px;padding:6px 11px}.question-side{background:#fff;border:1px solid var(--line);border-radius:15px;display:flex;flex-direction:column;min-height:0;overflow:hidden}.side-head{padding:16px 15px 10px;border-bottom:1px solid #edf0f4}.side-head h2{margin:0;font-size:16px}.side-head p{margin:5px 0 0;color:var(--muted);font-size:11px}.question-filter{display:flex;gap:4px;padding:9px;border-bottom:1px solid #edf0f4}.question-filter button{padding:6px 7px;min-height:30px;font-size:10px;flex:1}.question-filter button.active{background:#eee8ff;border-color:#ded2f6;color:#714fbd;font-weight:750}.question-list{overflow:auto;padding:9px;display:grid;gap:7px}.question-row{border:1px solid #e3e7ed;background:#fff;border-radius:10px;text-align:left;padding:10px}.question-row.active{border-color:#8c70d7;background:#f8f5ff}.question-row small{display:block;color:#777f8f;font-size:10px;margin-bottom:5px}.question-row p{margin:0;line-height:1.45;font-size:12px}.selected-answer{border-top:1px solid #edf0f4;padding:12px;background:#fafbfc}.selected-answer .bubble{position:relative;border-radius:12px;background:#f1f5ff;border:1px solid #dbe6ff;padding:12px;font-size:12px;line-height:1.55}.selected-answer .bubble:before{content:"";position:absolute;width:10px;height:10px;top:-6px;left:22px;background:#f1f5ff;border-top:1px solid #dbe6ff;border-left:1px solid #dbe6ff;transform:rotate(45deg)}.selected-answer button{margin-top:9px;width:100%;border:0;background:var(--blue);color:#fff;border-radius:9px;padding:10px;font-weight:750}.answer-state{font-size:10px;color:#667085;margin-top:6px}.page-foot{height:28px;flex:none;display:flex;align-items:center;justify-content:space-between;padding:0 18px;color:#798292;font-size:10px;background:#fff;border-top:1px solid var(--line)}.charts-view{height:calc(100vh - 162px);min-height:620px;overflow:auto;background:#0c0e12;color:#f5f6fa;padding:25px clamp(18px,3vw,48px) 35px}.charts-head{display:flex;align-items:flex-start;gap:20px;flex-wrap:wrap}.charts-head .title-block{margin-right:auto}.charts-head small{font-size:10px;letter-spacing:.2em;color:#78aaf9;font-weight:750}.charts-head h1{margin:6px 0 6px;font-size:clamp(27px,3.2vw,42px);letter-spacing:-.035em}.charts-head p{margin:0;color:#9ea5b3;font-size:13px}.chart-controls{display:flex;align-items:center;gap:8px}.chart-controls button{background:#171a21;border-color:#323641;color:#f4f5f8}.chart-controls .inject{background:#3169e8;border-color:#3169e8}.metrics-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin:20px 0 14px}.metric{background:#171a20;border:1px solid #262a32;border-radius:15px;padding:15px 17px}.metric small{display:block;color:#9aa1ae;font-size:11px}.metric strong{display:block;font-size:29px;margin-top:4px;font-variant-numeric:tabular-nums}.metric em{font-style:normal;color:#73a8ff;font-size:11px;margin-left:5px}.chart-grid{display:grid;grid-template-columns:1.1fr 1.3fr 1fr;gap:12px}.chart-card{background:#171a20;border:1px solid #262a32;border-radius:16px;padding:17px;min-width:0}.chart-card h2{font-size:14px;margin:0 0 5px}.chart-card>p{margin:0 0 13px;color:#9299a7;font-size:11px}.donut-layout{display:flex;align-items:center;gap:20px;min-height:200px}.donut{width:min(190px,48%);aspect-ratio:1;border-radius:50%;position:relative;flex:none;background:conic-gradient(#4886f4 0deg 86.4deg,#e89348 86.4deg 134.4deg,#40b596 134.4deg 273.6deg,#e4ba53 273.6deg 326.4deg,#747c89 326.4deg 360deg)}.donut:after{content:"";position:absolute;inset:24%;border-radius:50%;background:#171a20}.donut-center{position:absolute;z-index:1;inset:0;display:grid;align-content:center;justify-items:center}.donut-center strong{font-size:29px}.donut-center span{color:#9ba2af;font-size:10px}.legend{display:grid;gap:8px;min-width:0;flex:1}.legend-row{display:grid;grid-template-columns:9px 1fr auto;align-items:center;gap:7px;font-size:10px;color:#c9cdd5}.legend-row i{width:8px;height:8px;border-radius:3px;background:var(--c)}.legend-row b{color:#fff;font-size:11px}.bar-list{display:grid;gap:10px}.bar-row{display:grid;grid-template-columns:minmax(100px,1.1fr) minmax(50px,2fr) 36px;align-items:center;gap:9px}.bar-row span{font-size:10px;color:#d1d5dd}.bar-track{height:11px;border-radius:20px;background:#2a2e38;overflow:hidden}.bar-track i{display:block;height:100%;background:var(--bar,#5188ed);border-radius:20px;transition:width .4s}.bar-row b{text-align:right;font-size:11px}.pages-ranking{display:grid;gap:9px}.page-rank{display:grid;grid-template-columns:28px 1fr auto;gap:8px;align-items:center;padding:8px;border-radius:10px;background:#20232b;cursor:pointer;border:1px solid transparent}.page-rank:hover{border-color:#586171}.page-rank>strong{color:#89afff}.page-rank div{min-width:0}.page-rank b{display:block;font-size:10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.page-rank small{color:#9198a5;font-size:9px}.page-rank em{font-size:11px;font-style:normal}.bottom-panels{display:grid;grid-template-columns:1.5fr 1fr;gap:12px;margin-top:12px}.recent-list{display:grid;gap:8px}.recent-item{display:grid;grid-template-columns:50px 1fr auto;gap:8px;align-items:center;padding:9px 10px;border-radius:9px;background:#20232b}.recent-item small{font-size:9px;color:#8790a0}.recent-item span{font-size:11px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.recent-item b{font-size:9px;color:#89b2ff}.fake-qr{width:104px;height:104px;margin:10px auto;background-color:#fff;background-image:repeating-conic-gradient(#151820 0% 25%,#fff 0% 50%);background-size:16px 16px;border:8px solid white;position:relative}.fake-qr:after{content:"DEMO";position:absolute;inset:37px 20px 0;background:#fff;color:#161923;font-size:11px;font-weight:900;text-align:center;padding-top:5px}.share-card{text-align:center}.share-card .qr-note{color:#8f97a5;font-size:10px;line-height:1.5}.presenter-view,.student-view{height:calc(100vh - 162px);min-height:540px;display:grid;grid-template-columns:minmax(0,1fr) 320px;gap:16px;padding:16px 20px;background:#eeedf0}.live-stage{min-width:0;display:flex;flex-direction:column;justify-content:center;align-items:center}.live-stage-head{width:min(100%,1200px);display:flex;align-items:center;gap:10px;margin-bottom:10px;color:#657084;font-size:12px}.live-stage-head strong{color:#263142}.live-stage-head .session-live{margin-left:auto}.slide-art.live-slide{width:min(100%,1200px);aspect-ratio:16/9;box-shadow:0 12px 40px #1f2a451c;border-radius:12px}.slide-art.live-slide .paper-top{padding:0 3%;font-size:clamp(13px,1.3vw,20px)}.slide-art.live-slide .paper-content{padding:2.5%;gap:2%}.slide-art.live-slide .paper-title{font-size:clamp(17px,2vw,30px)}.slide-art.live-slide .paper-tag{font-size:clamp(9px,.9vw,14px);padding:5px 8px}.slide-art.live-slide .paper-copy{height:8px;margin-top:10px}.slide-art.live-slide .paper-box{padding:4%}.slide-art.live-slide .paper-quote{font-size:clamp(14px,1.6vw,24px)}.slide-art.live-slide .paper-list{gap:10px;padding:7%}.slide-art.live-slide .paper-list i{height:10px}.slide-art.live-slide .chart-caption{font-size:12px}.slide-art.live-slide .mini-pin{width:34px;height:42px}.live-sidebar{background:#fff;border:1px solid white;border-radius:16px;padding:18px;overflow:auto;box-shadow:var(--shadow)}.live-sidebar h2{font-size:17px;margin:0}.live-sidebar p{color:var(--muted);line-height:1.5;font-size:12px}.live-sidebar .big-number{font-size:36px;font-weight:850;color:#2f65dc}.live-sidebar .summary-pill{padding:10px 12px;border:1px solid var(--line);border-radius:10px;margin:8px 0;font-size:11px}.live-sidebar .summary-pill b{display:block;font-size:12px;margin-bottom:3px}.student-card{width:min(360px,100%);background:#fff;border:1px solid var(--line);border-radius:17px;padding:16px;box-shadow:var(--shadow);margin-top:12px}.student-card h3{margin:0 0 7px}.student-card p{color:var(--muted);line-height:1.5;font-size:12px}.student-card label{display:grid;gap:6px;font-size:11px;margin-top:10px}.student-card textarea,.student-card select{border:1px solid var(--line);border-radius:9px;padding:10px;background:#fff}.student-card textarea{min-height:84px;resize:vertical}.student-card .send-question{margin-top:10px;width:100%;border:0;border-radius:9px;padding:11px;background:var(--blue);color:#fff;font-weight:750}.student-tools{display:flex;gap:7px;justify-content:center;margin:12px}.student-tools button{font-size:11px;padding:7px 9px;min-height:32px}.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);z-index:50;background:#1d2430;color:#fff;padding:10px 15px;border-radius:999px;font-size:12px;box-shadow:0 6px 20px #0003;display:none}.toast.show{display:block;animation:cardIn .2s both}
+    @media(max-width:1050px){.group-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.chart-grid{grid-template-columns:1fr 1fr}.chart-card:last-child{grid-column:1/-1}.page-main{grid-template-columns:minmax(0,1fr) 290px}.presenter-view,.student-view{grid-template-columns:minmax(0,1fr) 280px}}
+    @media(max-width:720px){.topbar{height:auto;min-height:60px;padding:10px 12px;gap:10px;flex-wrap:wrap}.session-name{display:none}.top-spacer{flex:1}.top-actions{width:100%;order:5}.top-actions button{flex:1;font-size:11px}.modebar{height:auto;padding:7px 8px;flex-wrap:wrap}.mode-tabs{width:100%;overflow:auto}.mode-tabs button{flex:1;white-space:nowrap;padding:8px;font-size:11px}.mode-spacer{display:none}.mode-actions{display:flex;width:100%}.mode-actions button{flex:1;padding:7px;font-size:10px}.demo-banner{height:auto;min-height:34px;padding:7px 12px;font-size:9px}.map-view,.charts-view,.presenter-view,.student-view{height:calc(100vh - 184px);min-height:560px}.map-toolbar{margin:8px 8px 0;flex-wrap:wrap;height:auto;gap:4px;padding:6px}.canvas-brand{padding:0 5px;font-size:11px}.map-filter{order:3;width:100%;border-left:0;border-top:1px solid var(--line);padding:4px 0 0;overflow:auto}.map-filter button{white-space:nowrap;font-size:10px}.toolbar-right{margin-left:auto}.toolbar-right button{font-size:10px}.board-scroll{inset:92px 0 0;padding:10px 8px 76px}.group-grid{grid-template-columns:1fr;gap:10px}.cluster{padding:10px}.slide-grid{gap:7px}.slide-card{padding:5px}.paper-top{font-size:8px}.paper-title{font-size:9px}.paper-quote{font-size:9px}.canvas-help{display:none}.float-dashboard{right:10px;bottom:10px;padding:11px 13px;font-size:11px}.page-backdrop{padding:0}.page-window{height:100dvh;width:100vw;border-radius:0}.page-top{height:50px;padding:0 10px;gap:7px}.page-top button{padding:7px;font-size:11px}.page-main{grid-template-columns:1fr;grid-template-rows:minmax(180px,44vh) minmax(220px,1fr);gap:8px;padding:8px;overflow:auto}.slide-art.large{width:100%;max-height:42vh}.slide-art.large .paper-top{font-size:10px}.slide-art.large .paper-title{font-size:14px}.slide-art.large .paper-copy{height:4px;margin-top:5px}.slide-art.large .paper-tag{font-size:8px}.slide-art.large .paper-quote{font-size:12px}.slide-art.large .mini-pin{width:25px;height:32px}.slide-art.large .mini-pin::after{font-size:15px}.question-side{min-height:250px}.question-list{max-height:140px}.selected-answer{padding:8px}.selected-answer .bubble{padding:9px;font-size:11px}.charts-view{padding:17px 10px 28px}.charts-head{gap:10px}.charts-head h1{font-size:26px}.charts-head p{font-size:11px}.chart-controls{width:100%}.chart-controls button{flex:1;font-size:10px;padding:7px}.metrics-row{grid-template-columns:1fr 1fr;gap:7px;margin:13px 0}.metric{padding:11px}.metric strong{font-size:24px}.chart-grid{grid-template-columns:1fr;gap:8px}.chart-card,.chart-card:last-child{grid-column:auto;padding:13px}.donut-layout{min-height:150px;gap:12px}.donut{width:150px}.bottom-panels{grid-template-columns:1fr;gap:8px}.presenter-view,.student-view{grid-template-columns:1fr;padding:8px;gap:8px;overflow:auto}.live-stage{min-height:250px}.live-sidebar{min-height:200px}.slide-art.live-slide .paper-top{font-size:11px}.slide-art.live-slide .paper-title{font-size:14px}.slide-art.live-slide .paper-copy{height:4px;margin-top:5px}.slide-art.live-slide .paper-tag{font-size:8px}.slide-art.live-slide .paper-quote{font-size:11px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}}
+  </style>
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark">?</span><span>Class Pin</span><span class="eyebrow">Q&amp;A STUDIO</span></div>
+      <div class="session-name">SOi 전체 분석&nbsp; / &nbsp;뉴던 PPT</div>
+      <div class="top-spacer"></div>
+      <span class="session-live"><i></i> LIVE DEMO</span><span class="runtime" id="runtime">00:00:00</span>
+      <div class="top-actions"><button data-mode="presenter">강사 슬라이드쇼 ↗</button><button data-mode="student">학생 질문 창 ↗</button></div>
+    </header>
+    <nav class="modebar" aria-label="데모 화면">
+      <div class="mode-tabs">
+        <button class="active" data-mode="map">① 수업 중 · 질문 지도</button>
+        <button data-mode="charts">② 질문 시간 · 실시간 그래프</button>
+        <button data-mode="presenter">③ 강사 화면</button>
+        <button data-mode="student">④ 학생 질문 화면</button>
+      </div>
+      <div class="mode-spacer"></div>
+      <div class="mode-actions"><button class="primary" data-inject>가상 질문 +10</button><button data-reset>데모 초기화</button></div>
+    </nav>
+    <div class="demo-banner"><strong>프론트엔드 미리보기</strong> 합성 슬라이드 · 가상 청중 50명 · 질문과 반응은 예시 데이터 · 서버/DB 저장 없음</div>
+
+    <main>
+      <section class="view map-view active" id="map-view" aria-label="질문 지도">
+        <div class="map-toolbar">
+          <div class="canvas-brand"><span class="spark">✳</span><span>Question canvas<small id="canvas-count">15 SLIDES · 150 PINS</small></span></div>
+          <div class="map-filter" role="group" aria-label="페이지 정렬 기준">
+            <button class="active" data-layout="content">내용별 자료 분류</button>
+            <button data-layout="type">질문 유형</button>
+            <button data-layout="status">처리 상태</button>
+            <button data-layout="sequence">원래 순서</button>
+          </div>
+          <div class="toolbar-right"><button id="shuffle">재배치</button><button id="zoom-out" aria-label="축소">−</button><span class="zoom-value" id="zoom-value">77%</span><button id="zoom-in" aria-label="확대">+</button></div>
+        </div>
+        <div class="board-scroll" id="board-scroll"><div class="group-grid" id="group-grid"></div></div>
+        <div class="canvas-help">페이지 클릭: 전체 화면으로 보기 · 핀 클릭: 질문 원문 · 휠/버튼: 캔버스 확대</div>
+        <button class="float-dashboard" data-mode="charts">질문 현황 · <span id="float-count">150</span></button>
+      </section>
+
+      <section class="view charts-view" id="charts-view" aria-label="질문 실시간 그래프">
+        <div class="charts-head">
+          <div class="title-block"><small>QUESTION TIME · LOCAL UI PREVIEW</small><h1>지금부터 질문 받겠습니다.</h1><p>자료 내용 범주별 질문 현황 · 가상 청중 50명 · 그래프와 페이지 탐색 시뮬레이션</p></div>
+          <div class="chart-controls"><label><input id="include-demo" type="checkbox" checked> 가상 질문 포함</label><button class="inject" data-inject>+10 질문 유입</button><button data-mode="map">질문 지도 보기</button></div>
+        </div>
+        <div class="metrics-row">
+          <article class="metric"><small>전체 질문 핀</small><strong id="metric-total">150</strong></article>
+          <article class="metric"><small>미처리 질문</small><strong id="metric-pending">96</strong></article>
+          <article class="metric"><small>가상 청중</small><strong>50<em>명</em></strong></article>
+          <article class="metric"><small>새로 도착</small><strong id="metric-new">+0</strong></article>
+        </div>
+        <div class="chart-grid">
+          <article class="chart-card"><h2>내용 범주별 질문 비율</h2><p>범주를 선택하면 관련 페이지로 이동합니다.</p><div class="donut-layout"><div class="donut" id="donut"><div class="donut-center"><strong id="donut-total">150</strong><span>전체 질문</span></div></div><div class="legend" id="legend"></div></div></article>
+          <article class="chart-card"><h2>내용 범주별 질문 수</h2><p>원본 핀 집계 · 클릭하면 해당 범주의 페이지를 엽니다.</p><div class="bar-list" id="category-bars"></div></article>
+          <article class="chart-card"><h2>질문 유형</h2><p>모르겠어요 · 이유 · 예시 · 기타</p><div class="bar-list" id="type-bars"></div></article>
+          <article class="chart-card"><h2>질문이 많이 모인 페이지</h2><p>페이지를 선택하면 슬라이드와 질문을 함께 확인합니다.</p><div class="pages-ranking" id="ranking"></div></article>
+        </div>
+        <div class="bottom-panels">
+          <article class="chart-card"><h2>최근 도착한 질문</h2><p>실시간 흐름을 보여주는 예시 질문입니다.</p><div class="recent-list" id="recent-list"></div></article>
+          <article class="chart-card share-card"><h2>참여 링크 미리보기</h2><div class="fake-qr" aria-label="스캔할 수 없는 데모 QR 장식"></div><p class="qr-note">UI 확인용 장식입니다. 실제 참여 링크와 연결되지 않습니다.<br>실제 QR 발급 · 외부기기 연결 없음</p></article>
+        </div>
+      </section>
+
+      <section class="view presenter-view" id="presenter-view" aria-label="강사 슬라이드쇼">
+        <div class="live-stage"><div class="live-stage-head"><strong>강사 슬라이드쇼</strong><span>SOi 전체 분석 · 예시 자료</span><span class="session-live"><i></i> LIVE</span><span class="runtime">· <span class="runtime-copy">00:00:00</span></span></div><div class="slide-art live-slide" id="presenter-art"></div><div class="stage-controls"><button id="presenter-prev">← 이전</button><span id="presenter-page">1 / 15</span><button id="presenter-next">다음 →</button><button data-mode="map">전체 지도</button></div></div>
+        <aside class="live-sidebar"><h2>수업 중 질문 현황</h2><p>질문이 많이 모이는 위치를 확인하고, 강의 흐름을 유지하세요.</p><div class="big-number"><span id="presenter-pins">8</span><small> 핀</small></div><div class="summary-pill"><b id="presenter-topic">시장·사용자 문제</b>이 페이지의 내용 범주 · 의미 묶음 3개</div><div class="summary-pill"><b>미처리 질문</b><span id="presenter-pending">5건</span> · 답변하면 핀 색이 바뀝니다.</div><button class="primary" data-mode="charts" style="width:100%;margin-top:8px;border:0;background:#3169e8;color:#fff;border-radius:10px;padding:11px">질문 현황 열기 →</button><p>발표 화면 페이지 이동은 이 미리보기 안에서만 동작합니다.</p></aside>
+      </section>
+
+      <section class="view student-view" id="student-view" aria-label="학생 질문 창">
+        <div class="live-stage"><div class="live-stage-head"><strong>학생 질문 창</strong><span>강사 화면의 예시 슬라이드를 보는 중</span><span class="session-live"><i></i> LIVE</span></div><div class="slide-art live-slide" id="student-art"></div><div class="student-tools"><button id="student-prev">← 이전</button><span id="student-page">1 / 15</span><button id="student-next">다음 →</button><button id="pin-toggle">핀 숨기기</button></div><p class="qr-note">슬라이드의 궁금한 위치를 눌러 핀 질문을 남기는 UI 예시입니다.</p></div>
+        <aside class="live-sidebar"><h2>질문 남기기</h2><p>학생이 보는 화면 예시 · 제출 내용은 브라우저 안에서만 시뮬레이션됩니다.</p><form class="student-card" id="student-form"><h3 id="student-form-title">현재 페이지에 질문</h3><label>질문 유형<select id="student-kind"><option>모르겠어요</option><option>왜 그런가요?</option><option>예시가 필요해요</option><option>기타</option></select></label><label>질문<textarea id="student-question" maxlength="240" placeholder="궁금한 내용을 적어주세요."></textarea></label><button class="send-question" type="submit">핀 질문 보내기</button></form><div class="summary-pill"><b>질문 작성 안내</b>내용과 연결되는 위치에 질문을 남기면 강사가 페이지와 질문을 함께 볼 수 있어요.</div></aside>
+      </section>
+    </main>
+  </div>
+
+  <div class="page-backdrop" id="page-backdrop" role="presentation">
+    <section class="page-window" role="dialog" aria-modal="true" aria-label="슬라이드 질문 상세" id="page-window">
+      <header class="page-top"><strong id="detail-title">1 / 15 페이지</strong><small>핀을 눌러 질문 보기 · 묶음 핀은 같은 맥락의 질문</small><button id="close-detail">닫기 × · Esc</button></header>
+      <div class="page-main">
+        <div class="presentation"><div class="slide-art large" id="detail-art"></div><div class="stage-controls"><button id="detail-prev">← 이전</button><span id="detail-page">1 / 15</span><button id="detail-next">다음 →</button></div></div>
+        <aside class="question-side"><div class="side-head"><h2>이 페이지의 질문</h2><p id="detail-count">원문 8건 · 의미상 묶음 3개</p></div><div class="question-filter" role="group" aria-label="핀 표시"><button class="active" data-pin-filter="all">전체 질문</button><button data-pin-filter="groups">묶음만</button><button data-pin-filter="focus">묶음 강조</button></div><div class="question-list" id="question-list"></div><div class="selected-answer" id="selected-answer"></div></aside>
+      </div>
+      <footer class="page-foot"><span>질문 묶음은 같은 페이지 안에서 맥락이 가까운 예시 핀을 합쳐 보여줍니다.</span><span>프론트엔드 데모 · 저장되지 않음</span></footer>
+    </section>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (function(){
+      const categories=[
+        {name:"시장·사용자 문제",color:"#4886f4",count:36,pages:[0,1,2]},
+        {name:"기존 서비스의 한계",color:"#e89348",count:20,pages:[3,4]},
+        {name:"해결방안·핵심 기술",color:"#40b596",count:58,pages:[5,6,7,8]},
+        {name:"사업화·검증",color:"#e4ba53",count:22,pages:[9,10,11,12]},
+        {name:"종합·기타",color:"#747c89",count:14,pages:[13,14]}
+      ];
+      const slides=[
+        {title:"서비스가 필요한 이유",category:0,count:8,groups:3,pending:5,theme:0,type:"왜 그런가요?",examples:["사용자가 이 서비스를 찾게 되는 결정적인 이유가 뭔가요?","이 문제를 겪는 사람은 어떤 상황에서 가장 불편한가요?","문제의 빈도는 어떤 기준으로 확인했나요?"]},
+        {title:"시장 변화와 사용자 문제",category:0,count:21,groups:8,pending:15,theme:1,type:"모르겠어요",examples:["사용자 증가가 시장 성장으로 이어지는 과정이 궁금해요.","이 수치는 어떤 조사와 기간을 기준으로 했나요?","기존 방식으로는 해결이 어려운 이유가 뭔가요?"]},
+        {title:"사용자 Pain Point",category:0,count:7,groups:3,pending:4,theme:2,type:"모르겠어요",examples:["사용자 인터뷰 결과가 전체 사용자도 대표하나요?","가장 많이 나온 불편은 어떤 기준으로 골랐나요?","이 문제를 해결하면 행동이 어떻게 바뀌나요?"]},
+        {title:"기존 서비스의 한계",category:1,count:11,groups:5,pending:7,theme:3,type:"왜 그런가요?",examples:["기존 서비스와 비교한 기준이 뭔가요?","이미 있는 기능으로 해결할 수는 없나요?","사용자들이 현재 대안을 계속 쓰는 이유는 뭔가요?"]},
+        {title:"사용자 인터뷰 인사이트",category:1,count:9,groups:4,pending:6,theme:1,type:"모르겠어요",examples:["인터뷰 참여자는 어떻게 모집했나요?","정성적인 의견을 어떤 방식으로 정리했나요?","반대 의견도 결과에 포함됐나요?"]},
+        {title:"핵심 해결 아이디어",category:2,count:17,groups:7,pending:11,theme:0,type:"예시가 필요해요",examples:["핵심 아이디어가 실제 화면에서는 어떻게 보이나요?","기존 제품과 다른 점을 한 문장으로 설명해 주세요.","이 기능을 먼저 만들기로 한 근거가 뭔가요?"]},
+        {title:"제품 사용 흐름",category:2,count:20,groups:8,pending:13,theme:2,type:"모르겠어요",examples:["첫 사용부터 완료까지 전체 과정을 설명해 주세요.","사용자가 다음 단계로 넘어가는 조건은 뭔가요?","이 기능은 모바일에서도 같은 방식으로 작동하나요?"]},
+        {title:"서비스 확장 방향",category:2,count:13,groups:5,pending:8,theme:1,type:"예시가 필요해요",examples:["다른 산업에 적용한다면 무엇부터 달라지나요?","확장할 때 가장 먼저 검증할 가설은 뭔가요?","현재 구조에서 확장에 필요한 기술은 무엇인가요?"]},
+        {title:"데이터와 핵심 기술",category:2,count:8,groups:3,pending:5,theme:2,type:"왜 그런가요?",examples:["이 추천 결과가 만들어지는 과정을 알려주세요.","데이터가 부족할 때는 어떻게 처리하나요?","결과의 정확도는 어떤 지표로 평가하나요?"]},
+        {title:"시장 진입 전략",category:3,count:7,groups:3,pending:4,theme:3,type:"예시가 필요해요",examples:["초기 사용자를 모으는 가장 현실적인 방법은 뭔가요?","먼저 진입할 고객군을 선택한 기준이 궁금해요.","경쟁 서비스와 가격을 어떻게 비교했나요?"]},
+        {title:"가설과 검증 방법",category:3,count:6,groups:2,pending:3,theme:0,type:"모르겠어요",examples:["검증에 성공했다고 판단하는 기준은 뭔가요?","짧은 실험으로 장기 유지율을 알 수 있나요?","가설이 틀렸을 때 다음 단계도 정해져 있나요?"]},
+        {title:"수익 모델과 비용",category:3,count:5,groups:2,pending:3,theme:3,type:"왜 그런가요?",examples:["사용자가 실제로 비용을 지불할 이유가 뭔가요?","운영비가 늘어나면 수익성은 어떻게 유지하나요?","예상 비용에 포함한 항목을 보여주세요."]},
+        {title:"실행 계획과 팀 역량",category:3,count:4,groups:2,pending:2,theme:2,type:"왜 그런가요?",examples:["현재 팀이 직접 만들 수 있는 범위는 어디까지인가요?","외부 협력이 필요한 부분은 어떤 건가요?","일정이 지연될 때 우선순위를 어떻게 조정하나요?"]},
+        {title:"기대 효과와 다음 단계",category:4,count:8,groups:3,pending:5,theme:1,type:"모르겠어요",examples:["가장 먼저 기대하는 변화가 무엇인가요?","성과를 비교할 기준 시점은 언제인가요?","다음 단계로 넘어가기 위한 조건은 뭔가요?"]},
+        {title:"핵심 메시지 정리",category:4,count:6,groups:2,pending:5,theme:0,type:"기타",examples:["앞 페이지의 결론을 한 번만 더 정리해 주세요.","핵심 내용을 실제 사용자 관점으로 설명해 주세요.","자료를 공유받을 수 있는 방법이 있나요?"]}
+      ];
+      const typeCounts=[{name:"모르겠어요",count:56,color:"#6e8ff0"},{name:"왜 그런가요?",count:40,color:"#b181ed"},{name:"예시가 필요해요",count:37,color:"#36a988"},{name:"기타",count:17,color:"#8993a3"}];
+      let mode="map",layout="content",currentPage=0,selectedQuestion=0,pinFilter="all",zoom=77,newCount=0,startedAt=Date.now(),toastTimer=0,showPins=true;
+      const el=id=>document.getElementById(id);
+      slides.forEach((slide,slideIndex)=>{
+        const sizes=slide.examples.map((_,i)=>Math.floor(slide.count/slide.examples.length)+(i<slide.count%slide.examples.length?1:0));
+        slide.questions=slide.examples.map((text,i)=>({id:"slide-"+(slideIndex+1)+"-question-"+(i+1),text,done:false,type:slide.type,groupSize:sizes[i]}));
+      });
+      const esc=value=>String(value).replace(/[&<>"']/g,ch=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[ch]));
+      const totalQuestions=()=>slides.reduce((n,s)=>n+s.count,0);
+      const totalPending=()=>slides.reduce((n,s)=>n+s.pending,0);
+      function art(slide,large){
+        const title=esc(slide.title),cat=esc(categories[slide.category].name),theme=slide.theme;
+        let body="";
+        if(theme===0) body='<div class="paper-box"><span class="paper-tag">핵심 인사이트</span><div class="paper-title">'+title+'</div><div class="paper-copy"></div><div class="paper-copy short"></div></div><div class="paper-visual"></div>';
+        else if(theme===1) body='<div class="paper-box"><span class="paper-tag">사용자 관찰</span><div class="paper-quote">'+title+'</div><div class="paper-copy"></div></div><div class="paper-box"><div class="paper-title">발견한 변화</div><div class="paper-list"><i></i><i></i><i></i></div></div>';
+        else if(theme===2) body='<div class="paper-box"><span class="paper-tag">서비스 구조</span><div class="paper-title">'+title+'</div><div class="chart-bars"><i></i><i></i><i></i><i></i></div><div class="chart-caption">사용 흐름 · 기능 연결</div></div><div class="paper-visual"></div>';
+        else body='<div class="paper-box"><span class="paper-tag">검증 결과</span><div class="paper-title">'+title+'</div><div class="paper-quote">가설 → 실험 → 배움</div></div><div class="paper-box"><div class="paper-title">실행 지표</div><div class="chart-bars"><i></i><i></i><i></i><i></i></div></div>';
+        let markers="";
+        if(large){
+          const pts=[[27,40],[57,34],[76,64],[39,72]];
+          for(let i=0;i<pts.length;i++){
+            const q=slide.questions[i%slide.questions.length];
+            markers+='<button class="micro-pin '+(pinFilter==="groups"?"hidden":pinFilter==="focus"?"dim":"")+'" style="--x:'+pts[i][0]+'%;--y:'+pts[i][1]+'%" data-question="'+esc(q.id)+'" aria-label="질문 핀 열기"></button>';
+          }
+          markers+='<button class="mini-pin" style="--x:47%;--y:53%" data-question="'+esc(slide.questions[0].id)+'" aria-label="전체 질문 '+slide.count+'건"><span style="position:absolute;z-index:2;color:#fff;font-size:clamp(9px,1vw,15px);font-weight:850;inset:0 0 4px;display:grid;place-items:center">'+slide.count+'</span></button>';
+          if(pinFilter!=="all") markers+='<button class="mini-pin blue" style="--x:67%;--y:57%" data-question="'+esc(slide.questions[1%slide.questions.length].id)+'" data-count="'+slide.groups+'" aria-label="의미 묶음 '+slide.groups+'개"></button>';
+        }else{
+          markers='<span class="mini-pin" style="--x:47%;--y:55%"></span><span class="mini-pin blue" style="--x:70%;--y:64%" data-count="'+slide.groups+'"></span>';
+        }
+        return '<div class="slide-art '+(large?"large ":"")+(large?"":"")+'" data-theme="'+theme+'"><div class="paper-top"><span class="blue-word">'+cat+'</span><span>'+title+'</span><b>soi</b></div><div class="paper-content">'+body+'</div>'+markers+'</div>';
+      }
+      function groupDefinitions(){
+        if(layout==="sequence") return [{name:"전체 페이지 · 원래 순서",color:"#8d77d0",pages:slides.map((_,i)=>i)}];
+        if(layout==="content") return categories.map((c,i)=>({name:c.name,color:c.color,pages:c.pages}));
+        if(layout==="type") return [
+          {name:"모르겠어요",color:"#6e8ff0",pages:[1,2,4,6,10,13]},
+          {name:"왜 그런가요?",color:"#b181ed",pages:[0,3,8,11,12]},
+          {name:"예시·적용 요청",color:"#36a988",pages:[5,7,9]},
+          {name:"기타 질문",color:"#8993a3",pages:[14]}
+        ];
+        return [
+          {name:"먼저 설명이 필요한 페이지",color:"#ed9295",pages:[1,3,5,6,7]},
+          {name:"질문을 확인하며 진행 중",color:"#7c9bf0",pages:[0,2,4,8,9,13]},
+          {name:"설명 완료 · 마무리 확인",color:"#78bea7",pages:[10,11,12,14]}
+        ];
+      }
+      function renderBoard(){
+        const root=el("group-grid"),groups=groupDefinitions();
+        root.innerHTML=groups.map((g,gi)=>{
+          const count=g.pages.reduce((n,i)=>n+slides[i].count,0);
+          const cards=g.pages.map((i,ci)=>{const s=slides[i];return '<button class="slide-card" style="--i:'+ci+'" data-page="'+i+'"><div class="slide-meta"><b>'+String(i+1).padStart(2,"0")+'</b><span>SLIDE '+(i+1)+'</span><em>'+s.pending+' 미처리</em></div>'+art(s,false)+'<div class="card-foot"><span class="red-count">● '+s.count+'건</span><span class="blue-count">◆ '+s.groups+' 묶음</span><span>'+esc(s.type)+'</span></div></button>';}).join("");
+          return '<section class="cluster" style="--cluster:'+g.color+';--i:'+gi+'"><div class="cluster-head"><i class="cluster-dot"></i><strong>'+esc(g.name)+'</strong><small>'+g.pages.length+' 페이지 · '+count+' 질문</small></div><div class="slide-grid">'+cards+'</div></section>';
+        }).join("");
+        el("canvas-count").textContent="15 SLIDES · "+totalQuestions()+" PINS";
+        el("float-count").textContent=totalQuestions();
+      }
+      function showToast(message){
+        const node=el("toast");node.textContent=message;node.classList.add("show");clearTimeout(toastTimer);toastTimer=setTimeout(()=>node.classList.remove("show"),2200);
+      }
+      function setMode(next){
+        mode=next;
+        document.querySelectorAll(".view").forEach(v=>v.classList.toggle("active",v.id===next+"-view"));
+        document.querySelectorAll("[data-mode]").forEach(b=>b.classList.toggle("active",b.dataset.mode===next));
+        if(next==="charts") renderCharts();
+        if(next==="presenter"||next==="student") renderLiveViews();
+      }
+      function openPage(index){
+        currentPage=Math.max(0,Math.min(slides.length-1,index));selectedQuestion=0;
+        renderPageDetail();el("page-backdrop").classList.add("open");document.body.style.overflow="hidden";
+      }
+      function closePage(){el("page-backdrop").classList.remove("open");document.body.style.overflow="";}
+      function renderQuestionList(){
+        const s=slides[currentPage],rows=el("question-list");
+        rows.innerHTML=s.questions.map((q,i)=>'<button class="question-row '+(i===selectedQuestion?"active":"")+'" data-select-question="'+i+'"><small>'+String(currentPage+1).padStart(2,"0")+'페이지 · '+(q.done?"✓ 설명 완료":q.type)+' · '+(i===0?"대표 질문":"원문 질문")+'</small><p>'+esc(q.text)+'</p></button>').join("");
+        const q=s.questions[selectedQuestion]||s.questions[0];
+        el("selected-answer").innerHTML='<div class="bubble"><strong>질문</strong><br>'+esc(q.text)+(q.groupSize>1?'<br><small>같은 맥락으로 묶인 질문 '+q.groupSize+'건</small>':"")+'</div><button id="answer-button" '+(q.done?"disabled":"")+'>'+(q.done?"설명 완료됨":"답변 처리")+'</button><div class="answer-state">'+(q.done?"이 질문은 설명 완료로 표시됐습니다.":"프론트엔드 데모 상태 · 서버에 저장되지 않습니다.")+'</div>';
+        const answer=el("answer-button");answer.onclick=function(){if(q.done)return;q.done=true;s.pending=Math.max(0,s.pending-1);renderPageDetail();renderBoard();renderCharts();renderLiveViews();showToast("질문을 설명 완료로 표시했습니다.");};
+      }
+      function renderPageDetail(){
+        const s=slides[currentPage];el("detail-title").textContent=String(currentPage+1)+" / "+slides.length+" 페이지 · "+s.title;el("detail-page").textContent=(currentPage+1)+" / "+slides.length;
+        el("detail-count").textContent="원문 "+s.count+"건 · 의미상 묶음 "+s.groups+"개 · 미처리 "+s.pending+"건";
+        el("detail-art").innerHTML=art(s,true);renderQuestionList();
+      }
+      function currentCategoryTotals(){
+        return categories.map(c=>({name:c.name,color:c.color,count:c.pages.reduce((n,i)=>n+slides[i].count,0),pages:c.pages}));
+      }
+      function renderBars(nodeId,rows,max,clickable){
+        el(nodeId).innerHTML=rows.map((r,i)=>'<div class="bar-row" '+(clickable?'data-chart-page="'+(r.pages? r.pages[0]:0)+'" role="button" tabindex="0"':"")+'><span>'+esc(r.name)+'</span><div class="bar-track"><i style="--bar:'+r.color+';width:'+(max?Math.max(3,r.count/max*100):0)+'%"></i></div><b>'+r.count+'</b></div>').join("");
+      }
+      function renderCharts(){
+        const total=totalQuestions(),cats=currentCategoryTotals(),typeTotal=typeCounts.reduce((n,t)=>n+t.count,0);
+        const colors=cats.map(c=>c.color);let angle=0;const stops=cats.map(c=>{const start=angle;angle+=total?c.count/total*360:0;return c.color+" "+start+"deg "+angle+"deg";});
+        el("donut").style.background=total?"conic-gradient("+stops.join(",")+")":"#343842";
+        el("metric-total").textContent=total;el("donut-total").textContent=total;el("metric-pending").textContent=totalPending();el("metric-new").textContent="+"+newCount;
+        el("legend").innerHTML=cats.map(c=>'<div class="legend-row"><i style="--c:'+c.color+'"></i><span>'+esc(c.name)+'</span><b>'+c.count+'</b></div>').join("");
+        renderBars("category-bars",cats,total,true);
+        renderBars("type-bars",typeCounts,typeTotal,false);
+        const ranks=slides.map((s,i)=>({s:s,i:i})).sort((a,b)=>b.s.count-a.s.count).slice(0,4);
+        el("ranking").innerHTML=ranks.map((r,i)=>'<div class="page-rank" data-page="'+r.i+'"><strong>0'+(i+1)+'</strong><div><b>'+String(r.i+1).padStart(2,"0")+'페이지 · '+esc(r.s.title)+'</b><small>미처리 '+r.s.pending+' · 의미 묶음 '+r.s.groups+'</small></div><em>'+r.s.count+'건 →</em></div>').join("");
+        const recent=[slides[1].questions[0],slides[6].questions[0],slides[7].questions[1],slides[0].questions[2]];
+        el("recent-list").innerHTML=recent.map((q,i)=>'<div class="recent-item"><small>'+(i===0?"방금 전":(i+1)*2+"분 전")+'</small><span>'+esc(q.text)+'</span><b>'+esc(q.type)+'</b></div>').join("");
+      }
+      function renderLiveViews(){
+        el("presenter-art").innerHTML=art(slides[currentPage],true);
+        el("student-art").innerHTML=art(slides[currentPage],true);
+        el("presenter-page").textContent=(currentPage+1)+" / "+slides.length;el("student-page").textContent=(currentPage+1)+" / "+slides.length;
+        el("presenter-pins").textContent=slides[currentPage].count;el("presenter-pending").textContent=slides[currentPage].pending+"건";
+        el("presenter-topic").textContent=categories[slides[currentPage].category].name;el("student-form-title").textContent=(currentPage+1)+"페이지에 질문";
+        document.querySelectorAll(".runtime-copy").forEach(n=>n.textContent=el("runtime").textContent);
+        document.querySelectorAll(".live-slide .mini-pin,.live-slide .micro-pin").forEach(n=>n.style.display=showPins?"":"none");
+      }
+      function injectQuestions(){
+        const increments=[2,1,4,2,1];increments.forEach((n,i)=>{const cat=categories[i];if(cat.pages.length){slides[cat.pages[0]].count+=n;slides[cat.pages[0]].pending+=n;}});
+        const typeAdds=[4,2,3,1];typeAdds.forEach((n,i)=>typeCounts[i].count+=n);newCount+=10;
+        renderBoard();renderCharts();renderLiveViews();showToast("가상 질문 10개가 도착했습니다.");
+      }
+      function updateRuntime(){
+        const seconds=Math.floor((Date.now()-startedAt)/1000),hh=String(Math.floor(seconds/3600)).padStart(2,"0"),mm=String(Math.floor(seconds%3600/60)).padStart(2,"0"),ss=String(seconds%60).padStart(2,"0");
+        el("runtime").textContent=hh+":"+mm+":"+ss;document.querySelectorAll(".runtime-copy").forEach(n=>n.textContent=hh+":"+mm+":"+ss);
+      }
+      document.addEventListener("click",e=>{
+        const modeButton=e.target.closest("[data-mode]");if(modeButton){setMode(modeButton.dataset.mode);return;}
+        const layoutButton=e.target.closest("[data-layout]");if(layoutButton){layout=layoutButton.dataset.layout;document.querySelectorAll("[data-layout]").forEach(b=>b.classList.toggle("active",b===layoutButton));renderBoard();return;}
+        const pageButton=e.target.closest("[data-page]");if(pageButton){openPage(Number(pageButton.dataset.page));return;}
+        const pinButton=e.target.closest("[data-question]");if(pinButton){const qid=pinButton.dataset.question;const q=slides[currentPage].questions.findIndex(item=>item.id===qid);selectedQuestion=Math.max(0,q);renderQuestionList();return;}
+        const questionButton=e.target.closest("[data-select-question]");if(questionButton){selectedQuestion=Number(questionButton.dataset.selectQuestion);renderQuestionList();return;}
+        const filterButton=e.target.closest("[data-pin-filter]");if(filterButton){pinFilter=filterButton.dataset.pinFilter;document.querySelectorAll("[data-pin-filter]").forEach(b=>b.classList.toggle("active",b===filterButton));renderPageDetail();return;}
+        if(e.target.closest("[data-inject]")){injectQuestions();return;}
+        if(e.target.closest("[data-reset]")){location.reload();return;}
+      });
+      el("close-detail").onclick=closePage;
+      el("page-backdrop").addEventListener("click",e=>{if(e.target===el("page-backdrop"))closePage();});
+      document.addEventListener("keydown",e=>{if(e.key==="Escape"&&el("page-backdrop").classList.contains("open"))closePage();if(el("page-backdrop").classList.contains("open")&&e.key==="ArrowRight")changePage(1);if(el("page-backdrop").classList.contains("open")&&e.key==="ArrowLeft")changePage(-1);});
+      function changePage(delta){openPage(currentPage+delta);}
+      el("detail-prev").onclick=()=>changePage(-1);el("detail-next").onclick=()=>changePage(1);
+      el("presenter-prev").onclick=el("student-prev").onclick=()=>{currentPage=Math.max(0,currentPage-1);renderLiveViews();};
+      el("presenter-next").onclick=el("student-next").onclick=()=>{currentPage=Math.min(slides.length-1,currentPage+1);renderLiveViews();};
+      el("pin-toggle").onclick=function(){showPins=!showPins;this.textContent=showPins?"핀 숨기기":"핀 보이기";renderLiveViews();};
+      el("shuffle").onclick=function(){const grid=el("group-grid");grid.classList.remove("shuffling");void grid.offsetWidth;grid.classList.add("shuffling");setTimeout(()=>grid.classList.remove("shuffling"),1300);};
+      el("zoom-in").onclick=()=>{zoom=Math.min(100,zoom+5);el("zoom-value").textContent=zoom+"%";el("group-grid").style.transform="scale("+zoom/77+")";el("group-grid").style.transformOrigin="top center";};
+      el("zoom-out").onclick=()=>{zoom=Math.max(55,zoom-5);el("zoom-value").textContent=zoom+"%";el("group-grid").style.transform="scale("+zoom/77+")";el("group-grid").style.transformOrigin="top center";};
+      el("student-form").addEventListener("submit",e=>{
+        e.preventDefault();const input=el("student-question"),text=input.value.trim();if(!text){input.focus();return;}
+        const s=slides[currentPage],q={id:"local-"+Date.now(),text:text,type:el("student-kind").value,done:false,groupSize:1};s.questions.unshift(q);s.count++;s.pending++;newCount++;
+        categories[s.category].count++;input.value="";renderBoard();renderCharts();renderLiveViews();showToast("질문을 데모 화면에 추가했습니다. 실제 저장은 하지 않았습니다.");
+      });
+      renderBoard();renderCharts();renderLiveViews();updateRuntime();setInterval(updateRuntime,1000);
+    })();
+  </script>
+</body>
+</html>
